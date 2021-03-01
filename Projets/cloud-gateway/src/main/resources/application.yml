@@ -13,7 +13,7 @@ spring:
             - Path=/api/employees/**
           filters:
             - name: CircuitBreaker
-                args:
+              args:
                   name: EMPLOYEE-SERVICE
                   fallbackuri: forward:/employeeServiceFallBack
         - id: DEPARTMENT-SERVICE
@@ -22,29 +22,17 @@ spring:
             - Path=/api/departments/**
           filters:
             - name: CircuitBreaker
-                args:
+              args:
                   name: DEPARTMENT-SERVICE
                   fallbackuri: forward:/departmentServiceFallBack
 
-
 hystrix:
   command:
-    fallbackcmd:
+    default:
       execution:
         isolation:
           thread:
-           timeoutInMilliseconds: 4000
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: hystrix.stream
-
-
-
-
-
+            timeoutInMilliseconds: 40000
 
 eureka:
   client:
